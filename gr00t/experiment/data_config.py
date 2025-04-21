@@ -32,6 +32,9 @@ from gr00t.data.transform.video import (
 )
 from gr00t.model.transforms import GR00TTransform
 
+# Import Aloha configuration
+from gr00t.experiment.configs.aloha_bimanual import AlohaBimanualConfig
+
 
 class BaseDataConfig(ABC):
     @abstractmethod
@@ -682,4 +685,5 @@ DATA_CONFIG_MAP = {
     "bimanual_panda_hand": BimanualPandaHandDataConfig(),
     "single_panda_gripper": SinglePandaGripperDataConfig(),
     "so100": So100DataConfig(),
+    "aloha_bimanual": AlohaBimanualConfig(),
 }

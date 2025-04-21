@@ -390,8 +390,14 @@ class StateActionTransform(InvertibleModalityTransform):
         # Check that all state keys specified in apply_to have their modality_metadata
         for key in self.apply_to:
             split_key = key.split(".")
-            assert len(split_key) == 2, "State keys should have two parts: 'modality.key'"
+            # Allow for keys with more than two parts (e.g. 'state.left_arm')
+            if len(split_key) > 2:
+                # For keys like 'state.left_arm', treat 'state' as modality and 'left_arm' as key
+                modality = split_key[0]
+                state_key = '.'.join(split_key[1:])
+                split_key = [modality, state_key]
             if key not in self.modality_metadata:
+                # split_key has already been processed above
                 modality, state_key = split_key
                 assert hasattr(modality_metadata, modality), f"{modality} config not found"
                 assert state_key in getattr(
@@ -402,7 +408,12 @@ class StateActionTransform(InvertibleModalityTransform):
         # Check that all state keys specified in normalization_modes have their statistics in state_statistics
         for key in self.normalization_modes:
             split_key = key.split(".")
-            assert len(split_key) == 2, "State keys should have two parts: 'modality.key'"
+            # Allow for keys with more than two parts (e.g. 'state.left_arm')
+            if len(split_key) > 2:
+                # For keys like 'state.left_arm', treat 'state' as modality and 'left_arm' as key
+                modality = split_key[0]
+                state_key = '.'.join(split_key[1:])
+                split_key = [modality, state_key]
             modality, state_key = split_key
             assert hasattr(dataset_statistics, modality), f"{modality} statistics not found"
             assert state_key in getattr(
@@ -432,7 +443,14 @@ class StateActionTransform(InvertibleModalityTransform):
 
         # Initialize the normalizers
         for key in self.normalization_modes:
-            modality, state_key = key.split(".")
+            split_key = key.split(".")
+            # Allow for keys with more than two parts (e.g. 'state.left_arm')
+            if len(split_key) > 2:
+                # For keys like 'state.left_arm', treat 'state' as modality and 'left_arm' as key
+                modality = split_key[0]
+                state_key = '.'.join(split_key[1:])
+            else:
+                modality, state_key = split_key
             # If the state has a nontrivial rotation, we need to handle it more carefully
             # For absolute rotations, we need to convert them to the target representation and normalize them using min_max mode,
             # since we can infer the bounds by the representation
