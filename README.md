@@ -2,11 +2,11 @@
 
 
   <img src="media/header_compress.png" width="800" alt="NVIDIA Isaac GR00T N1 Header">
-  
+
   <!-- --- -->
-  
+
   <p style="font-size: 1.2em;">
-    <a href="https://developer.nvidia.com/isaac/gr00t"><strong>Website</strong></a> | 
+    <a href="https://developer.nvidia.com/isaac/gr00t"><strong>Website</strong></a> |
     <a href="https://huggingface.co/nvidia/GR00T-N1-2B"><strong>Model</strong></a> |
     <a href="https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim"><strong>Dataset</strong></a> |
     <a href="https://arxiv.org/abs/2503.14734"><strong>Paper</strong></a>
@@ -43,7 +43,7 @@ The neural network architecture of GR00T N1 is a combination of vision-language 
 
 Here is the general procedure to use GR00T N1:
 
-1. Assuming the user has already collected a dataset of robot demonstrations in the form of (video, state, action) triplets. 
+1. Assuming the user has already collected a dataset of robot demonstrations in the form of (video, state, action) triplets.
 2. User will first convert the demonstration data into the LeRobot compatible data schema (more info in [`getting_started/LeRobot_compatible_data_schema.md`](getting_started/LeRobot_compatible_data_schema.md)), which is compatible with the upstream [Huggingface LeRobot](https://github.com/huggingface/lerobot).
 3. Our repo provides examples to configure different configurations for training with different robot embodiments.
 4. Our repo provides convenient scripts to finetune the pre-trained GR00T N1 model on user's data, and run inference.
@@ -75,16 +75,14 @@ git clone https://github.com/NVIDIA/Isaac-GR00T
 cd Isaac-GR00T
 ```
 
-Create a new conda environment and install the dependencies. We recommend Python 3.10:
+Install the dependencies:
 
 > Note that, please make sure your CUDA version is 12.4. Otherwise, you may have a hard time with properly configuring flash-attn module.
 
 ```sh
-conda create -n gr00t python=3.10
-conda activate gr00t
 pip install --upgrade setuptools
 pip install -e .
-pip install --no-build-isolation flash-attn==2.7.1.post4 
+pip install --no-build-isolation flash-attn==2.7.1.post4
 ```
 
 
@@ -232,10 +230,10 @@ You will then see a plot of Ground Truth vs Predicted actions, along with unnorm
 # FAQ
 
 *Does it work on CUDA ARM Linux?*
-- Yes, visit [jetson-containers](https://github.com/dusty-nv/jetson-containers/tree/master/packages/robots/Isaac-GR00T). 
+- Yes, visit [jetson-containers](https://github.com/dusty-nv/jetson-containers/tree/master/packages/robots/Isaac-GR00T).
 
 *I have my own data, what should I do next for finetuning?*
-- This repo assumes that your data is already organized according to the LeRobot format. 
+- This repo assumes that your data is already organized according to the LeRobot format.
 
 
 *What is Modality Config? Embodiment Tag? and Transform Config?*
@@ -261,7 +259,7 @@ We noticed that 4 denoising steps are sufficient during inference.
 For more details, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 
-## License 
+## License
 
 ```
 # SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
